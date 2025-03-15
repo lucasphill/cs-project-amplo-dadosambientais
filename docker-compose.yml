@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    container_name: api
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PsqlConnectionString=Host=db;Username=postgres;Password=postpassword;Database=amploengenharia
+    depends_on:
+      - db
+    command: /bin/bash -c "apt-get update && apt-get install -y git && mkdir new && cd new/ && git clone https://github.com/lucasphill/cs-project-amplo-dadosambientais.git && cd /new/cs-project-amplo-dadosambientais && dotnet restore && dotnet build -c Release && dotnet publish -c Release -o /app/cs-project-amplo-dadosambientais/publish && dotnet /app/cs-project-amplo-dadosambientais/publish/cs-project-amplo-dadosambientais.dll"
+    # debian command to download from git, build and publish dotnet app
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postpassword
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
