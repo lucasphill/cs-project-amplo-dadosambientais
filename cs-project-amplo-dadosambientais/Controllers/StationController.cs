@@ -22,7 +22,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _stationService.CreateStation(dto);
             if(response.Status == true)
             {
-                return Created();
+                return Ok(response);
             }
 
             return BadRequest(response);
