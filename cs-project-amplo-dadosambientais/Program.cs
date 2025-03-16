@@ -18,9 +18,19 @@ builder.Services.AddSwaggerGen();
 // Add Postgres with Entity
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PsqlConnectionString")));
 
-// Ddd services
+// Add services
 builder.Services.AddScoped<StationService>();
 builder.Services.AddScoped<AirQualityService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Allow", builder =>
+    {
+        builder.WithOrigins("*")  // Defina a origem permitida
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -60,6 +70,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("Allow");
 
 app.MapControllers();
 
