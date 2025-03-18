@@ -2,9 +2,9 @@
 {
     public class CreateAirQualityDataDTO
     {
-        public float? PartículasInalaveis2 { get; set; }
+        public float? ParticulasInalaveis2 { get; set; }
         public float? ParticulasInalaveis10 { get; set; }
-        public float? PartículasTotaisEmSuspensao { get; set; }
+        public float? ParticulasTotaisEmSuspensao { get; set; }
         public float? DioxidoDeEnxofre { get; set; }
         public float? MonoxidoDeCarbono { get; set; }
         public float? DioxidoDeNitrogenio { get; set; }
