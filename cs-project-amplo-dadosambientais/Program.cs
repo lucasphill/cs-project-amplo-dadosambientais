@@ -4,7 +4,7 @@ using cs_project_amplo_dadosambientais.Services.AirQuality;
 using cs_project_amplo_dadosambientais.Services.Station;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Serilog;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +22,17 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 // Add services
 builder.Services.AddScoped<IAirQualityInterface, AirQualityService>();
 builder.Services.AddScoped<IStationInterface, StationService>();
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console() // Escreve logs no console
+    .WriteTo.File("logs/dadosambientais-.txt", rollingInterval: RollingInterval.Day) // Escreve logs em um arquivo com rotação diária
+    .CreateLogger();
+builder.Host.UseSerilog();
+
+
+// Add logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddCors(options =>
 {

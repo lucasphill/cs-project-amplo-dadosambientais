@@ -10,10 +10,12 @@ namespace cs_project_amplo_dadosambientais.Controllers
     public class AirQualityController : ControllerBase
     {
         private readonly IAirQualityInterface _airQualityInterface;
+        private readonly ILogger<AirQualityController> _logger;
 
-        public AirQualityController(IAirQualityInterface airQualityInterface)
+        public AirQualityController(IAirQualityInterface airQualityInterface, ILogger<AirQualityController> logger)
         {
             _airQualityInterface = airQualityInterface;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -22,9 +24,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.CreateAirQuality(dto);
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Status} - {response.Message}");
                 return Ok(response);
             }
-
+            _logger.LogError($"{response.Status} - {response.Message}");
             return BadRequest(response);
         }
 
@@ -34,9 +37,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.ReadAirQuality();
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Status} - {response.Message}");
                 return Ok(response);
             }
-
+            _logger.LogError($"{response.Status} - {response.Message}");
             return BadRequest(response);
         }
 
@@ -46,9 +50,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.ReadAirQualityById(Id);
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Status} - {response.Message}");
                 return Ok(response);
             }
-
+            _logger.LogError($"{response.Timestamp.ToString()} - {response.Message} - {Id}");
             return BadRequest(response);
         }
 
@@ -58,9 +63,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.ReadAirQualityByStationId(StationId);
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Status} - {response.Message}");
                 return Ok(response);
             }
-
+            _logger.LogError($"{response.Timestamp.ToString()} - {response.Message}");
             return BadRequest(response);
         }
 
@@ -70,9 +76,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.UpdateAirQuality(Id, dto);
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Timestamp.ToString()} - {response.Message} - {Id}");
                 return NoContent();
             }
-
+            _logger.LogError($"{response.Timestamp.ToString()} - {response.Message} - {Id}");
             return BadRequest(response);
         }
 
@@ -82,9 +89,10 @@ namespace cs_project_amplo_dadosambientais.Controllers
             var response = _airQualityInterface.DeleteAirQuality(Id);
             if (response.Status == true)
             {
+                _logger.LogInformation($"{response.Timestamp.ToString()} - {response.Message} - {Id}");
                 return NoContent();
             }
-
+            _logger.LogError($"{response.Timestamp.ToString()} - {response.Message} - {Id}");
             return BadRequest(response);
         }
     }
