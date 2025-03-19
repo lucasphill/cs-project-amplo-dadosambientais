@@ -9,17 +9,17 @@ namespace cs_project_amplo_dadosambientais.Controllers
     [ApiController]
     public class StationController : ControllerBase
     {
-        private StationService _stationService;
+        private readonly IStationInterface _stationInterface;
 
-        public StationController(StationService stationService)
+        public StationController(IStationInterface stationInterface)
         {
-            _stationService = stationService;
+            _stationInterface = stationInterface;
         }
 
         [HttpPost]
         public ActionResult CreateStation(CreateStationDTO dto)
         {
-            var response = _stationService.CreateStation(dto);
+            var response = _stationInterface.CreateStation(dto);
             if(response.Status == true)
             {
                 return Ok(response);
@@ -31,7 +31,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpGet]
         public ActionResult<ServiceResponseModel<List<ReadStationDTO>>> ReadStations()
         {
-            var response = _stationService.ReadStations();
+            var response = _stationInterface.ReadStations();
             if (response.Status == true)
             {
                 return Ok(response);
@@ -43,7 +43,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpGet("{Id}")]
         public ActionResult<ServiceResponseModel<ReadStationDTO>> ReadStationById(Guid Id)
         {
-            var response = _stationService.ReadStationById(Id);
+            var response = _stationInterface.ReadStationById(Id);
             if(response.Status == true)
             {
                 return Ok(response);
@@ -55,7 +55,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpPut]
         public ActionResult UpdateStation(Guid Id, UpdateStationDTO dto)
         {
-            var response = _stationService.UpdateStation(Id, dto);
+            var response = _stationInterface.UpdateStation(Id, dto);
             if (response.Status == true)
             {
                 return NoContent();
@@ -67,7 +67,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpDelete]
         public ActionResult DeleteStation(Guid Id)
         {
-            var response = _stationService.DeleteStation(Id);
+            var response = _stationInterface.DeleteStation(Id);
             if (response.Status == true)
             {
                 return NoContent();

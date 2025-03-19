@@ -4,7 +4,7 @@ using cs_project_amplo_dadosambientais.Models;
 
 namespace cs_project_amplo_dadosambientais.Services.Station
 {
-    public class StationService
+    public class StationService : IStationInterface
     {
         private AppDbContext _context;
 
