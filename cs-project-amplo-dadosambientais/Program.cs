@@ -20,8 +20,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PsqlConnectionString")));
 
 // Add services
-builder.Services.AddScoped<StationService>();
 builder.Services.AddScoped<IAirQualityInterface, AirQualityService>();
+builder.Services.AddScoped<IStationInterface, StationService>();
 
 builder.Services.AddCors(options =>
 {
