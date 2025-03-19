@@ -2,7 +2,7 @@
 using cs_project_amplo_dadosambientais.Data.DTO.Station;
 using cs_project_amplo_dadosambientais.Models;
 
-namespace cs_project_amplo_dadosambientais.Services
+namespace cs_project_amplo_dadosambientais.Services.Station
 {
     public class StationService
     {

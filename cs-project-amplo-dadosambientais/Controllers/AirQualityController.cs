@@ -1,6 +1,6 @@
 ﻿using cs_project_amplo_dadosambientais.Data.DTO.AirQualityData;
 using cs_project_amplo_dadosambientais.Models;
-using cs_project_amplo_dadosambientais.Services;
+using cs_project_amplo_dadosambientais.Services.AirQuality;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cs_project_amplo_dadosambientais.Controllers
@@ -9,17 +9,17 @@ namespace cs_project_amplo_dadosambientais.Controllers
     [ApiController]
     public class AirQualityController : ControllerBase
     {
-        AirQualityService _airQualityService;
+        private readonly IAirQualityInterface _airQualityInterface;
 
-        public AirQualityController(AirQualityService airQualityService)
+        public AirQualityController(IAirQualityInterface airQualityInterface)
         {
-            _airQualityService = airQualityService;
+            _airQualityInterface = airQualityInterface;
         }
 
         [HttpPost]
-        public ActionResult CreateAirQuality(CreateAirQualityDTO dto)
+        public ActionResult<ServiceResponseModel<AirQualityModel>> CreateAirQuality(CreateAirQualityDTO dto)
         {
-            var response = _airQualityService.CreateAirQuality(dto);
+            var response = _airQualityInterface.CreateAirQuality(dto);
             if (response.Status == true)
             {
                 return Ok(response);
@@ -31,7 +31,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpGet]
         public ActionResult<ServiceResponseModel<List<ReadAirQualityDTO>>> ReadAirQuality()
         {
-            var response = _airQualityService.ReadAirQuality();
+            var response = _airQualityInterface.ReadAirQuality();
             if (response.Status == true)
             {
                 return Ok(response);
@@ -43,7 +43,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpGet("{Id}")]
         public ActionResult<ServiceResponseModel<ReadAirQualityDTO>> ReadAirQualityById(Guid Id)
         {
-            var response = _airQualityService.ReadAirQualityById(Id);
+            var response = _airQualityInterface.ReadAirQualityById(Id);
             if (response.Status == true)
             {
                 return Ok(response);
@@ -55,7 +55,7 @@ namespace cs_project_amplo_dadosambientais.Controllers
         [HttpGet("ByStationId/{StationId}")]
         public ActionResult<ServiceResponseModel<List<ReadAirQualityDTO>>> ReadAirQualityByStationId(Guid StationId)
         {
-            var response = _airQualityService.ReadAirQualityByStationId(StationId);
+            var response = _airQualityInterface.ReadAirQualityByStationId(StationId);
             if (response.Status == true)
             {
                 return Ok(response);
@@ -65,9 +65,9 @@ namespace cs_project_amplo_dadosambientais.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateAirQuality(Guid Id, UpdateAirQualityDTO dto)
+        public ActionResult<ServiceResponseModel<AirQualityModel>> UpdateAirQuality(Guid Id, UpdateAirQualityDTO dto)
         {
-            var response = _airQualityService.UpdateAirQuality(Id, dto);
+            var response = _airQualityInterface.UpdateAirQuality(Id, dto);
             if (response.Status == true)
             {
                 return NoContent();
@@ -77,9 +77,9 @@ namespace cs_project_amplo_dadosambientais.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteAirQuality(Guid Id)
+        public ActionResult<ServiceResponseModel<AirQualityModel>> DeleteAirQuality(Guid Id)
         {
-            var response = _airQualityService.DeleteAirQuality(Id);
+            var response = _airQualityInterface.DeleteAirQuality(Id);
             if (response.Status == true)
             {
                 return NoContent();

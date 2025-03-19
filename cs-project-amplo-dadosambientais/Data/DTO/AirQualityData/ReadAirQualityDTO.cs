@@ -12,5 +12,5 @@ public class ReadAirQualityDTO
 
     public DateTime InsertTimeStamp { get; set; }
 
-    public Guid Station { get; set; }
+    //public Guid Station { get; set; }
 }

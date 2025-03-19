@@ -1,6 +1,6 @@
 ﻿using cs_project_amplo_dadosambientais.Data.DTO.Station;
 using cs_project_amplo_dadosambientais.Models;
-using cs_project_amplo_dadosambientais.Services;
+using cs_project_amplo_dadosambientais.Services.Station;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cs_project_amplo_dadosambientais.Controllers

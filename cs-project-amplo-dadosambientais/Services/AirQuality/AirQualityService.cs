@@ -4,9 +4,9 @@ using cs_project_amplo_dadosambientais.Data.DTO.AirQualityData;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 
-namespace cs_project_amplo_dadosambientais.Services
+namespace cs_project_amplo_dadosambientais.Services.AirQuality
 {
-    public class AirQualityService
+    public class AirQualityService : IAirQualityInterface
     {
         private AppDbContext _context;
 
@@ -15,7 +15,7 @@ namespace cs_project_amplo_dadosambientais.Services
             _context = context;
         }
 
-        public ServiceResponseModel<StationModel> CreateAirQuality(CreateAirQualityDTO dto)
+        public ServiceResponseModel<AirQualityModel> CreateAirQuality(CreateAirQualityDTO dto)
         {
             /// <summary>
             /// Receive Data in CreateAirQualityDTO format and insert in _context.AirQuality
@@ -24,7 +24,7 @@ namespace cs_project_amplo_dadosambientais.Services
             /// </summary>
 
             // Initialize response model object
-            var serviceResponse = new ServiceResponseModel<StationModel>();
+            var serviceResponse = new ServiceResponseModel<AirQualityModel>();
             try
             {
                 var station = _context.Station.FirstOrDefault(station => station.Id == dto.StationId);
